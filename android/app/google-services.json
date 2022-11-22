@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "53795650487",
+    "project_id": "second-raceway-355608",
+    "storage_bucket": "second-raceway-355608.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53795650487:android:1ac7347ebf2f0d2ad0c632",
+        "android_client_info": {
+          "package_name": "com.myapp.course"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53795650487-tt2s2r0pm8k39cd0j4m846rhbekmup92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myapp.course",
+            "certificate_hash": "f1018fc818e6b02fc723be527c394665c29d2070"
+          }
+        },
+        {
+          "client_id": "53795650487-m4f7i3k5ur3u9r125su476k8j2nanj5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCpfS0kKt1O-ieCtQnbX4nOe3MIIc151U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53795650487-m4f7i3k5ur3u9r125su476k8j2nanj5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

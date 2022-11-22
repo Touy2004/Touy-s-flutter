@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:myapp/controller/main_controller.dart';
 import 'package:myapp/page/OTP.dart';
 
 class Register extends StatefulWidget {
@@ -17,6 +19,7 @@ class _RegisterState extends State<Register> {
   final password = TextEditingController();
   final confirm = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  final MainController controller = Get.put(MainController());
 
   @override
   Widget build(BuildContext context) {
@@ -148,11 +151,13 @@ class _RegisterState extends State<Register> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      if(_formkey.currentState!.validate()){
-                         Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return OTP(phone: phone.text);
-                      }));
+                      if (_formkey.currentState!.validate()) {
+                        // controller.register(firstname.text, lastname.text,
+                        //     phone.text, password.text, context);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return OTPPage(firstName: firstname.text, lastName: lastname.text, phone: phone.text, password: password.text);
+                        }));
                       }
                     },
                     child: Text("Next"),

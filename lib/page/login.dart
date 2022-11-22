@@ -90,13 +90,6 @@ class _LoginState extends State<Login> {
                       onPressed: () {
                         if (_formkey.currentState!.validate()) {
                           controller.login(phone.text, password.text);
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("sucessful"),
-                                );
-                              });
                         }
                       },
                       child: Text('Login')),

@@ -1,26 +1,28 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:http/http.dart' as http;
 
-class MainController extends GetxController {
-  @override
-  void onInit() async {
-    super.onInit();
-    await fetchAlbums();
-  }
+import '../config/config.dart';
 
+class MainController extends GetxController {
+  final box = GetStorage();
   login(phone, password) async {
     try {
       var body = {"phone": phone, "password": password};
 
-      var response = await http.post(
-          Uri.parse("http://192.168.195.1:5000/api/user/login"),
-          body: body);
+      var response = await http.post(Uri.parse(LOGIN), body: body);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         print(response.body);
+        await setToken(data["token"]);
+        Get.offAllNamed('/home');
+        update();
       }
       print(response.body);
     } catch (e) {
@@ -28,40 +30,34 @@ class MainController extends GetxController {
     }
   }
 
-  Future<Album> fetchAlbums() async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+  register(firstname, lastname, phone, password, BuildContext context) async {
+    try {
+      var body = {
+        "firstName": firstname,
+        "lastName": lastname,
+        "phone": phone,
+        "password": password
+      };
 
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      var data = jsonDecode(response.body);
-      print(data);
-      return Album.fromJson(jsonDecode(response.body));
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
+      var response = await http.post(Uri.parse(REGISTER), body: body);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        print(response.body);
+        await setToken(data["token"]);
+        Get.offAllNamed('/home');
+        update();
+      }
+      print(response.body);
+    } catch (e) {
+      print("error register ${e}");
     }
   }
-}
 
-class Album {
-  final int userId;
-  final int id;
-  final String title;
-
-  const Album({
-    required this.userId,
-    required this.id,
-    required this.title,
-  });
-
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-    );
+  setToken(token) async {
+    try {
+      await box.write("token", token);
+    } catch (e) {
+      print("error token ${e}");
+    }
   }
 }
